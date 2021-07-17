@@ -4,20 +4,35 @@
  */
 
 // Стили для файла с примером HTML-фрагмента
-  
+
 * {
   box-sizing: border-box;
 }
 
+// body {
+//   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell,
+//     'Helvetica Neue', sans-serif;
+//   background-color: #fafafa;
+//   color: #212121;
+//   line-height: 1.5;
+// }
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
-  background-color: #fafafa;
-  color: #212121;
-  line-height: 1.5;
+  text-align: center;
+  font-family: 'Covered By Your Grace', cursive;
+  color: white;
+  background: #222;
+  font-size: 20px;
 }
 
 img {
   display: block;
   max-width: 100%;
+}
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style-type: none;
 }

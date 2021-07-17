@@ -119,10 +119,19 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   return newRequire;
 })({"js/03-promisify.js":[function(require,module,exports) {
 // ======================= Subtask 1 =======================
-const delay = ms => {// Change this function
+const delay = ms => {
+  // Change this function
+  return new Promise(resolve => {
+    if (ms) {
+      setTimeout(() => {
+        resolve(ms);
+      }, ms);
+    }
+  });
 };
 
-const logger = time => console.log(`Fulfilled after ${time}ms`); // Tests
+const logger = time => console.log(`Fulfilled after ${time}ms`); // console.log(delay(2000))
+// Tests
 
 
 delay(2000).then(logger); // Fulfilled after 2000ms
@@ -141,61 +150,68 @@ const users = [{
 }, {
   name: 'Ajax',
   active: false
-}];
+}]; // const toggleUserState = (allUsers, username, callback) => {
+//     const updatedUsers = allUsers.map(user =>
+//         user.name === username ? { ...user, active: !user.active } : user
+//     );
+//     callback(updatedUsers);
+// };
 
-const toggleUserState = (allUsers, username, callback) => {
-  const updatedUsers = allUsers.map(user => user.name === username ? { ...user,
-    active: !user.active
-  } : user);
-  callback(updatedUsers);
+const toggleUserState = (allUsers, username) => {
+  // console.log(username);
+  return new Promise(resolve => {
+    const updateUsers = allUsers.map(user => {
+      if (user.name === username) {
+        user.active = !user.active;
+        return user;
+      } else {
+        return user;
+      }
+    });
+    console.log(updateUsers);
+
+    if (updateUsers) {
+      resolve(updateUsers);
+    }
+  });
 }; // Currently the function works like this
 // toggleUserState(users, 'Mango', console.table);
 // toggleUserState(users, 'Ajax', console.table);
 // The function should work like this
 // toggleUserState(users, 'Mango').then(console.table);
-// toggleUserState(users, 'Ajax').then(console.table);
-// ======================= Subtask 3 =======================
 
 
-const randomIntegerFromInterval = (min, max) => {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-};
-
-const makeTransaction = (transaction, onSuccess, onError) => {
-  const delay = randomIntegerFromInterval(200, 500);
-  setTimeout(() => {
-    const canProcess = Math.random() > 0.3;
-
-    if (canProcess) {
-      onSuccess({
-        id: transaction.id,
-        time: delay
-      });
-    } else {
-      onError(transaction.id);
-    }
-  }, delay);
-};
-
-const logSuccess = ({
-  id,
-  time
-}) => {
-  console.log(`Transaction ${id} processed in ${time}ms`);
-};
-
-const logError = id => {
-  console.warn(`Error processing transaction ${id}. Please try again later.`);
-}; // Currently the function works like this
-// makeTransaction({ id: 70, amount: 150 }, logSuccess, logError);
-// makeTransaction({ id: 71, amount: 230 }, logSuccess, logError);
-// makeTransaction({ id: 72, amount: 75 }, logSuccess, logError);
-// makeTransaction({ id: 73, amount: 100 }, logSuccess, logError);
-// The function should work like this
-// makeTransaction({ id: 70, amount: 150 }).then(logSuccess).catch(logError);
-// makeTransaction({ id: 71, amount: 230 }).then(logSuccess).catch(logError);
-// makeTransaction({ id: 72, amount: 75 }).then(logSuccess).catch(logError);
-// makeTransaction({ id: 73, amount: 100 }).then(logSuccess).catch(logError);
+toggleUserState(users, 'Ajax').then(console.table); // // ======================= Subtask 3 =======================
+// const randomIntegerFromInterval = (min, max) => {
+//     return Math.floor(Math.random() * (max - min + 1) + min);
+// };
+// const makeTransaction = (transaction, onSuccess, onError) => {
+//     const delay = randomIntegerFromInterval(200, 500);
+//     setTimeout(() => {
+//         const canProcess = Math.random() > 0.3;
+//         if (canProcess) {
+//             onSuccess({ id: transaction.id, time: delay });
+//         } else {
+//             onError(transaction.id);
+//         }
+//     }, delay);
+// };
+// const logSuccess = ({ id, time }) => {
+//     console.log(`Transaction ${id} processed in ${time}ms`);
+// };
+// const logError = id => {
+//     console.warn(`Error processing transaction ${id}. Please try again later.`);
+// };
+// // Currently the function works like this
+// // makeTransaction({ id: 70, amount: 150 }, logSuccess, logError);
+// // makeTransaction({ id: 71, amount: 230 }, logSuccess, logError);
+// // makeTransaction({ id: 72, amount: 75 }, logSuccess, logError);
+// // makeTransaction({ id: 73, amount: 100 }, logSuccess, logError);
+// // The function should work like this
+// // makeTransaction({ id: 70, amount: 150 }).then(logSuccess).catch(logError);
+// // makeTransaction({ id: 71, amount: 230 }).then(logSuccess).catch(logError);
+// // makeTransaction({ id: 72, amount: 75 }).then(logSuccess).catch(logError);
+// // makeTransaction({ id: 73, amount: 100 }).then(logSuccess).catch(logError);
 },{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -224,7 +240,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "6063" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "2215" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

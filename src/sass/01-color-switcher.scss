@@ -1,0 +1,39 @@
+input {
+  width: 300px;
+  height: 30px;
+  border-radius: 20px;
+}
+.swal2-styled {
+  height: max-content;
+}
+
+button {
+  width: 150px;
+  height: 30px;
+  border-radius: 20px;
+}
+button:disabled {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #ece7e7;
+}
+div {
+  display: inline-block;
+  line-height: 1;
+  padding: 20px;
+  font-size: 40px;
+}
+
+span {
+  display: block;
+  font-size: 20px;
+  color: white;
+}
+
+body {
+  text-align: center;
+  font-family: 'Covered By Your Grace', cursive;
+  color: white;
+  background: #222;
+  font-size: 20px;
+}
