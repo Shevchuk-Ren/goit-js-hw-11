@@ -3238,7 +3238,8 @@ const timerDays = document.querySelector('[data-days]');
 const timerHours = document.querySelector('[data-hours]');
 const timerMin = document.querySelector('[data-minutes]');
 const timerSec = document.querySelector('[data-seconds]');
-timerBtn.disabled = true; // в классе хранятся свойства, все что необходимо для подсчетов
+timerBtn.disabled = true;
+let createDataEnd = null; // в классе хранятся свойства, все что необходимо для подсчетов
 
 class Timer {
   constructor({
@@ -3252,19 +3253,16 @@ class Timer {
   start() {
     if (this.isActive) {
       const newDataEnd = new Date(inputHours.value).getTime();
+
+      if (newDataEnd != createDataEnd) {
+        clearInterval(this.intervalId);
+        this.startTimer();
+      }
+
       return;
     }
 
-    const currentDate = Date.now();
-    const createDataEnd = new Date(inputHours.value).getTime();
-    this.isActive = true;
-    let deltaDate = createDataEnd - currentDate;
-    this.intervalId = setInterval(() => {
-      const caunterTime = deltaDate -= 1000;
-      const updateClock = this.convertMs(caunterTime);
-      this.onTick(updateClock);
-      timer.stop();
-    }, 1000);
+    this.startTimer();
   } //останавливает таймер, когда он доходит до своего конца, блокирует кнопку
 
 
@@ -3307,18 +3305,28 @@ class Timer {
     return String(value).padStart(2, '0');
   }
 
+  startTimer() {
+    const currentDate = Date.now();
+    createDataEnd = new Date(inputHours.value).getTime();
+    this.isActive = true;
+    let deltaDate = createDataEnd - currentDate;
+    this.intervalId = setInterval(() => {
+      const caunterTime = deltaDate -= 1000;
+      const updateClock = this.convertMs(caunterTime);
+      this.onTick(updateClock);
+      timer.stop();
+    }, 1000);
+  }
+
 } //передаем функцию как свойство для класса
 
 
 const timer = new Timer({
   onTick: updateClockFace
 }); //cлушатель на кнопке и на инпуте
-// timerBtn.addEventListener('click', () => {
-//     timer.start();
-// });
 
 timerBtn.addEventListener('click', timer.start.bind(timer));
-inputHours.addEventListener('input', onInput); //обновляет время таймера
+inputHours.addEventListener('change', onInput); //обновляет время таймера
 
 function updateClockFace({
   days,
@@ -3373,7 +3381,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "11808" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "8203" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

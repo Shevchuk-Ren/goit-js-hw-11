@@ -150,12 +150,7 @@ const users = [{
 }, {
   name: 'Ajax',
   active: false
-}]; // const toggleUserState = (allUsers, username, callback) => {
-//     const updatedUsers = allUsers.map(user =>
-//         user.name === username ? { ...user, active: !user.active } : user
-//     );
-//     callback(updatedUsers);
-// };
+}];
 
 const toggleUserState = (allUsers, username) => {
   // console.log(username);
@@ -259,7 +254,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "11808" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "8203" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

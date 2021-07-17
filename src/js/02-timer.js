@@ -10,6 +10,7 @@ const timerSec = document.querySelector('[data-seconds]');
 
 
 timerBtn.disabled = true;
+let createDataEnd = null;
 
 // в классе хранятся свойства, все что необходимо для подсчетов
 class Timer {
@@ -20,22 +21,19 @@ class Timer {
     }
 
     start() {
-        
+      
         if (this.isActive) {
+           
             const newDataEnd = new Date(inputHours.value).getTime();
-                return;
+            if (newDataEnd != createDataEnd) {
+                
+                clearInterval(this.intervalId);
+                this.startTimer();
+             }
+            return;
         }
-        const currentDate = Date.now();
-        const createDataEnd = new Date(inputHours.value).getTime();
-        this.isActive = true;
-        let deltaDate = createDataEnd - currentDate;
-        
-        this.intervalId = setInterval(() => {
-            const caunterTime = deltaDate -= 1000;
-            const updateClock = this.convertMs(caunterTime);
-            this.onTick(updateClock)
-            timer.stop();
-        }, 1000);
+        this.startTimer();
+    
     }
   
     //останавливает таймер, когда он доходит до своего конца, блокирует кнопку
@@ -75,7 +73,21 @@ class Timer {
    */
   pad(value) {
     return String(value).padStart(2, '0');
-};
+    };
+    
+  startTimer() {
+         const currentDate = Date.now();
+         createDataEnd = new Date(inputHours.value).getTime();
+        this.isActive = true;
+        let deltaDate = createDataEnd - currentDate;
+        
+        this.intervalId = setInterval(() => {
+            const caunterTime = deltaDate -= 1000;
+            const updateClock = this.convertMs(caunterTime);
+            this.onTick(updateClock)
+            timer.stop();
+        }, 1000);
+    }
 }
 
 //передаем функцию как свойство для класса
@@ -85,14 +97,12 @@ const timer = new Timer({
 
 
 //cлушатель на кнопке и на инпуте
-// timerBtn.addEventListener('click', () => {
-//     timer.start();
-// });
+
 
 timerBtn.addEventListener('click', 
     timer.start.bind(timer)
 );
-inputHours.addEventListener('input', onInput);
+inputHours.addEventListener('change', onInput);
 
 
 //обновляет время таймера
@@ -112,6 +122,7 @@ function onInput() {
 
     if (new Date(inputHours.value).getTime() >= Date.now()) {
         timerBtn.disabled = false;
+       
       
     } else if(new Date(inputHours.value).getTime() <= Date.now()) {
        

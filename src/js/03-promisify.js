@@ -26,13 +26,7 @@ const users = [
     { name: 'Ajax', active: false },
 ];
 
-// const toggleUserState = (allUsers, username, callback) => {
-//     const updatedUsers = allUsers.map(user =>
-//         user.name === username ? { ...user, active: !user.active } : user
-//     );
 
-//     callback(updatedUsers);
-// };
 
 const toggleUserState = (allUsers, username) => {
     // console.log(username);
