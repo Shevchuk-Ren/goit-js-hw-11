@@ -1,0 +1,1 @@
+{"version":3,"sources":["sass/03-promisify.scss"],"names":[],"mappings":"AAAA,KACE,iBAAA,CACA,yCAAA,CACA,UAAA,CACA,eAAA,CACA","file":"03-promisify.863a569b.css","sourceRoot":"../src","sourcesContent":["body {\r\n  text-align: center;\r\n  font-family: 'Covered By Your Grace', cursive;\r\n  color: white;\r\n  background: #222;\r\n  font-size: 20px;\r\n}"]}
