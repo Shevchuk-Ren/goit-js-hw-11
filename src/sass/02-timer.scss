@@ -1,4 +1,4 @@
- @import url(https://fonts.googleapis.com/css?family=Covered+By+Your+Grace);
+@import url(https://fonts.googleapis.com/css?family=Covered+By+Your+Grace);
 
 span[data-days] {
   font-size: 200px;
@@ -16,23 +16,22 @@ span[data-seconds] {
   font-size: 50px;
   color: #abcd58;
 }
-input{
-    width: 300px;
-    height: 30px;
-    border-radius: 20px;
+
+input {
+  width: 300px;
+  height: 30px;
+  border-radius: 20px;
 }
 .swal2-styled {
-    height: max-content;
-   
+  height: max-content;
 }
 
 button {
-    width: 150px;
-    height: 30px;
-    border-radius: 20px;
+  width: 150px;
+  height: 30px;
+  border-radius: 20px;
 }
-button:disabled
-{
+button:disabled {
   border: 1px solid #999999;
   background-color: #cccccc;
   color: #ece7e7;

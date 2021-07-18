@@ -153,29 +153,19 @@ const users = [{
 }];
 
 const toggleUserState = (allUsers, username) => {
-  // console.log(username);
-  return new Promise(resolve => {
-    const updateUsers = allUsers.map(user => {
-      if (user.name === username) {
-        user.active = !user.active;
-        return user;
-      } else {
-        return user;
-      }
-    });
-    console.log(updateUsers);
-
-    if (updateUsers) {
-      resolve(updateUsers);
-    }
-  });
+  console.log(username);
+  return Promise.resolve(allUsers.map(user => {
+    return user.name === username ? { ...user,
+      active: !user.active
+    } : user;
+  }));
 }; // Currently the function works like this
 // toggleUserState(users, 'Mango', console.table);
 // toggleUserState(users, 'Ajax', console.table);
 // The function should work like this
-// toggleUserState(users, 'Mango').then(console.table);
 
 
+toggleUserState(users, 'Mango').then(console.table);
 toggleUserState(users, 'Ajax').then(console.table); // // ======================= Subtask 3 =======================
 
 const randomIntegerFromInterval = (min, max) => {
@@ -254,7 +244,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "8203" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "4173" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -29,23 +29,18 @@ const users = [
 
 
 const toggleUserState = (allUsers, username) => {
-    // console.log(username);
-   return new Promise((resolve) => {
-
-            const updateUsers =  allUsers.map(user => {
+    console.log(username);
+   
+    return Promise.resolve(
+        allUsers.map(user => {
                 
-                if(user.name === username) {
-                   user.active = !user.active;
-                   return user;
-                }  else  {
-                    return user; 
-                }})
-console.log(updateUsers)
-        if(updateUsers) { 
-            resolve(updateUsers) 
-        }
-    })
-}
+            return user.name === username ? { ...user, active: !user.active } : user;
+                
+        })
+    );
+    }
+    
+
 
 
 // Currently the function works like this
@@ -53,7 +48,7 @@ console.log(updateUsers)
 // toggleUserState(users, 'Ajax', console.table);
 
 // The function should work like this
-// toggleUserState(users, 'Mango').then(console.table);
+toggleUserState(users, 'Mango').then(console.table);
 toggleUserState(users, 'Ajax').then(console.table);
 
 // // ======================= Subtask 3 =======================
