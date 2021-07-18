@@ -46,28 +46,7 @@ class Timer {
             
         }
     }
-
-    // ms - разница между конечной и текущей датой в миллисекундаx
-    // переводит общую сумму милисекунд: дни, часы, минуты, секунды
- convertMs(ms) {
-    // Number of milliseconds per unit of time
-    const second = 1000;
-    const minute = second * 60;
-    const hour = minute * 60;
-    const day = hour * 24;
-
-    // Remaining days
-    const days = this.pad(Math.floor(ms / day));
-    // Remaining hours
-    const hours = this.pad(Math.floor((ms % day) / hour));
-    // Remaining minutes
-    const minutes = this.pad(Math.floor(((ms % day) % hour) / minute));
-    // Remaining seconds
-    const seconds = this.pad(Math.floor((((ms % day) % hour) % minute) / second));
-
-    return { days, hours, minutes, seconds };
-    };
-    
+ 
 /*
    * Принимает число, приводит к строке и добавляет в начало 0 если число меньше 2-х знаков
    */
@@ -88,21 +67,48 @@ class Timer {
             timer.stop();
         }, 1000);
     }
+
+ // блокирует кнопку, если дата меньше сегодняшней даты, разблокирует если больше или равно
+  onInput() {
+
+    if (new Date(inputHours.value).getTime() >= Date.now()) {
+        timerBtn.disabled = false;
+       
+      
+    } else if(new Date(inputHours.value).getTime() <= Date.now()) {
+       
+        timerBtn.disabled = true;
+        return Swal.fire('Please choose a date in the future')
+    }
+
+    };
+    
+        // ms - разница между конечной и текущей датой в миллисекундаx
+    // переводит общую сумму милисекунд: дни, часы, минуты, секунды
+ convertMs(ms) {
+    // Number of milliseconds per unit of time
+    const second = 1000;
+    const minute = second * 60;
+    const hour = minute * 60;
+    const day = hour * 24;
+
+    // Remaining days
+    const days = this.pad(Math.floor(ms / day));
+    // Remaining hours
+    const hours = this.pad(Math.floor((ms % day) / hour));
+    // Remaining minutes
+    const minutes = this.pad(Math.floor(((ms % day) % hour) / minute));
+    // Remaining seconds
+    const seconds = this.pad(Math.floor((((ms % day) % hour) % minute) / second));
+
+    return { days, hours, minutes, seconds };
+    };
 }
 
-//передаем функцию как свойство для класса
+//передаем функцию для визуализации таймера  как свойство для класса
 const timer = new Timer({
     onTick: updateClockFace
 });
-
-
-//cлушатель на кнопке и на инпуте
-
-
-timerBtn.addEventListener('click', 
-    timer.start.bind(timer)
-);
-inputHours.addEventListener('change', onInput);
 
 
 //обновляет время таймера
@@ -117,17 +123,11 @@ function updateClockFace({ days, hours, minutes, seconds }) {
     
 };
 
-// блокирует кнопку, если дата меньше сегодняшней даты, разблокирует если больше или равно
-function onInput() {
 
-    if (new Date(inputHours.value).getTime() >= Date.now()) {
-        timerBtn.disabled = false;
-       
-      
-    } else if(new Date(inputHours.value).getTime() <= Date.now()) {
-       
-        timerBtn.disabled = true;
-        return Swal.fire('Please choose a date in the future')
-    }
+//cлушатель на кнопке и на инпуте
 
-};
+
+timerBtn.addEventListener('click', 
+    timer.start.bind(timer)
+);
+inputHours.addEventListener('change', timer.onInput.bind(timer));

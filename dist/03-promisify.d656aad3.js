@@ -153,7 +153,7 @@ const users = [{
 }];
 
 const toggleUserState = (allUsers, username) => {
-  console.log(username);
+  // console.log(username);
   return Promise.resolve(allUsers.map(user => {
     return user.name === username ? { ...user,
       active: !user.active
@@ -173,8 +173,8 @@ const randomIntegerFromInterval = (min, max) => {
 };
 
 const makeTransaction = transaction => {
-  const delay = randomIntegerFromInterval(200, 500);
-  console.log(delay);
+  const delay = randomIntegerFromInterval(200, 500); // console.log(delay)
+
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const canProcess = Math.random() > 0.3;
@@ -195,7 +195,7 @@ const logSuccess = ({
   id,
   time
 }) => {
-  console.log(id);
+  // console.log(id)
   console.log(`Transaction ${id} processed in ${time}ms`);
 };
 
@@ -207,11 +207,20 @@ const logError = id => {
 // makeTransaction({ id: 72, amount: 75 }, logSuccess, logError);
 // makeTransaction({ id: 73, amount: 100 }, logSuccess, logError);
 // The function should work like this
-// makeTransaction({ id: 70, amount: 150 }).then(logSuccess).catch(logError);
-// makeTransaction({ id: 71, amount: 230 }).then(logSuccess).catch(logError);
-// makeTransaction({ id: 72, amount: 75 }).then(logSuccess).catch(logError);
 
 
+makeTransaction({
+  id: 70,
+  amount: 150
+}).then(logSuccess).catch(logError);
+makeTransaction({
+  id: 71,
+  amount: 230
+}).then(logSuccess).catch(logError);
+makeTransaction({
+  id: 72,
+  amount: 75
+}).then(logSuccess).catch(logError);
 makeTransaction({
   id: 73,
   amount: 100
@@ -244,7 +253,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "2207" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "13496" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

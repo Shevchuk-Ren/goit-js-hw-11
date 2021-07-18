@@ -3272,10 +3272,41 @@ class Timer {
       this.isActive = false;
       timerBtn.disabled = true;
     }
-  } // ms - разница между конечной и текущей датой в миллисекундаx
+  }
+  /*
+     * Принимает число, приводит к строке и добавляет в начало 0 если число меньше 2-х знаков
+     */
+
+
+  pad(value) {
+    return String(value).padStart(2, '0');
+  }
+
+  startTimer() {
+    const currentDate = Date.now();
+    createDataEnd = new Date(inputHours.value).getTime();
+    this.isActive = true;
+    let deltaDate = createDataEnd - currentDate;
+    this.intervalId = setInterval(() => {
+      const caunterTime = deltaDate -= 1000;
+      const updateClock = this.convertMs(caunterTime);
+      this.onTick(updateClock);
+      timer.stop();
+    }, 1000);
+  } // блокирует кнопку, если дата меньше сегодняшней даты, разблокирует если больше или равно
+
+
+  onInput() {
+    if (new Date(inputHours.value).getTime() >= Date.now()) {
+      timerBtn.disabled = false;
+    } else if (new Date(inputHours.value).getTime() <= Date.now()) {
+      timerBtn.disabled = true;
+      return _sweetalert.default.fire('Please choose a date in the future');
+    }
+  }
+
+  // ms - разница между конечной и текущей датой в миллисекундаx
   // переводит общую сумму милисекунд: дни, часы, минуты, секунды
-
-
   convertMs(ms) {
     // Number of milliseconds per unit of time
     const second = 1000;
@@ -3298,35 +3329,12 @@ class Timer {
     };
   }
 
-  /*
-     * Принимает число, приводит к строке и добавляет в начало 0 если число меньше 2-х знаков
-     */
-  pad(value) {
-    return String(value).padStart(2, '0');
-  }
-
-  startTimer() {
-    const currentDate = Date.now();
-    createDataEnd = new Date(inputHours.value).getTime();
-    this.isActive = true;
-    let deltaDate = createDataEnd - currentDate;
-    this.intervalId = setInterval(() => {
-      const caunterTime = deltaDate -= 1000;
-      const updateClock = this.convertMs(caunterTime);
-      this.onTick(updateClock);
-      timer.stop();
-    }, 1000);
-  }
-
-} //передаем функцию как свойство для класса
+} //передаем функцию для визуализации таймера  как свойство для класса
 
 
 const timer = new Timer({
   onTick: updateClockFace
-}); //cлушатель на кнопке и на инпуте
-
-timerBtn.addEventListener('click', timer.start.bind(timer));
-inputHours.addEventListener('change', onInput); //обновляет время таймера
+}); //обновляет время таймера
 
 function updateClockFace({
   days,
@@ -3341,18 +3349,10 @@ function updateClockFace({
   timerSec.textContent = `${seconds}`;
 }
 
-; // блокирует кнопку, если дата меньше сегодняшней даты, разблокирует если больше или равно
+; //cлушатель на кнопке и на инпуте
 
-function onInput() {
-  if (new Date(inputHours.value).getTime() >= Date.now()) {
-    timerBtn.disabled = false;
-  } else if (new Date(inputHours.value).getTime() <= Date.now()) {
-    timerBtn.disabled = true;
-    return _sweetalert.default.fire('Please choose a date in the future');
-  }
-}
-
-;
+timerBtn.addEventListener('click', timer.start.bind(timer));
+inputHours.addEventListener('change', timer.onInput.bind(timer));
 },{"sweetalert2":"../node_modules/sweetalert2/dist/sweetalert2.all.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -3558,4 +3558,4 @@ function hmrAcceptRun(bundle, id) {
   }
 }
 },{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/02-timer.js"], null)
-//# sourceMappingURL=/02-timer.6e0ec381.js.map
+//# sourceMappingURL=/02-timer.6e0ec381.js.mapp
