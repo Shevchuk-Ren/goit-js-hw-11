@@ -9,7 +9,7 @@ const delay = ms => {
             
         }
     });
-    
+ 
 };
 
 const logger = time => console.log(`Fulfilled after ${time}ms`);
