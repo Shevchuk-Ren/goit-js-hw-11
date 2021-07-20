@@ -3252,7 +3252,7 @@ class Timer {
 
   start() {
     if (this.isActive) {
-      const newDataEnd = new Date(inputHours.value).getTime();
+      const newDataEnd = new Date(inputHours.value).setHours(0);
 
       if (newDataEnd != createDataEnd) {
         clearInterval(this.intervalId);
@@ -3284,7 +3284,7 @@ class Timer {
 
   startTimer() {
     const currentDate = Date.now();
-    createDataEnd = new Date(inputHours.value).getTime();
+    createDataEnd = new Date(inputHours.value).setHours(0);
     this.isActive = true;
     let deltaDate = createDataEnd - currentDate;
     this.intervalId = setInterval(() => {
@@ -3381,7 +3381,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "2207" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "5461" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -3558,4 +3558,4 @@ function hmrAcceptRun(bundle, id) {
   }
 }
 },{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/02-timer.js"], null)
-//# sourceMappingURL=/02-timer.6e0ec381.js.mapp
+//# sourceMappingURL=/02-timer.6e0ec381.js.map

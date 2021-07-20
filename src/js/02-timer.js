@@ -24,14 +24,16 @@ class Timer {
       
         if (this.isActive) {
            
-            const newDataEnd = new Date(inputHours.value).getTime();
+            const newDataEnd = new Date(inputHours.value).setHours(0);
+           
             if (newDataEnd != createDataEnd) {
-                
+
                 clearInterval(this.intervalId);
                 this.startTimer();
              }
             return;
         }
+     
         this.startTimer();
     
     }
@@ -55,8 +57,9 @@ class Timer {
     };
     
   startTimer() {
-         const currentDate = Date.now();
-         createDataEnd = new Date(inputHours.value).getTime();
+      const currentDate = Date.now();
+    
+      createDataEnd = new Date(inputHours.value).setHours(0);
         this.isActive = true;
         let deltaDate = createDataEnd - currentDate;
         
